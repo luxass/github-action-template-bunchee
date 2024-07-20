@@ -41,9 +41,9 @@ jobs:
       - name: Print unused-import
         if: matrix.os == 'windows-latest'
         run: |
-          List-ChildItem -Path ./node_modules
-          List-ChildItem -Path ./node_modules/eslint-plugin-unused-imports
-          List-ChildItem -Path ./node_modules/eslint-plugin-unused-imports/lib
+          Get-ChildItem -Path ./node_modules
+          Get-ChildItem -Path ./node_modules/eslint-plugin-unused-imports
+          Get-ChildItem -Path ./node_modules/eslint-plugin-unused-imports/lib
           Get-Content -Path ./node_modules/eslint-plugin-unused-imports/lib/index.js
 
       - name: Lint
