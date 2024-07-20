@@ -39,11 +39,12 @@ jobs:
         run: pnpm build
 
       - name: Print unused-import
+        if: matrix.os == 'windows'
         run: |
-          ls -la ./node_modules
-          ls -la ./node_modules/eslint-plugin-unused-imports
-          ls -la ./node_modules/eslint-plugin-unused-imports/lib
-          cat ./node_modules/eslint-plugin-unused-imports/lib/index.js
+          List-ChildItem -Path ./node_modules
+          List-ChildItem -Path ./node_modules/eslint-plugin-unused-imports
+          List-ChildItem -Path ./node_modules/eslint-plugin-unused-imports/lib
+          Get-Content -Path ./node_modules/eslint-plugin-unused-imports/lib/index.js
 
       - name: Lint
         run: pnpm lint
