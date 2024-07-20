@@ -39,7 +39,7 @@ jobs:
         run: pnpm build
 
       - name: Print unused-import
-        if: matrix.os == 'windows'
+        if: matrix.os == 'windows-latest'
         run: |
           List-ChildItem -Path ./node_modules
           List-ChildItem -Path ./node_modules/eslint-plugin-unused-imports
