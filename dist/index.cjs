@@ -6306,6 +6306,7 @@ var hasRequiredFile;
 function requireFile () {
 	if (hasRequiredFile) return file;
 	hasRequiredFile = 1;
+	var _computedKey;
 	const { Blob, File: NativeFile } = require$$7__default.default;
 	const { types } = require$$0__default$2.default;
 	const { kState } = requireSymbols$3();
@@ -6383,6 +6384,7 @@ function requireFile () {
 	        return this[kState].type;
 	    }
 	}
+	_computedKey = Symbol.toStringTag;
 	class FileLike {
 	    constructor(blobLike, fileName, options = {}){
 	        // TODO: argument idl type check
@@ -6453,7 +6455,7 @@ function requireFile () {
 	        webidl.brandCheck(this, FileLike);
 	        return this[kState].lastModified;
 	    }
-	    get [Symbol.toStringTag]() {
+	    get [_computedKey]() {
 	        return 'File';
 	    }
 	}
@@ -8447,6 +8449,7 @@ function requireConstants$2 () {
 	return constants$3;
 }
 
+var _computedKey$2;
 const util$f = util$j;
 const { kBodyUsed } = symbols$4;
 const assert$6 = require$$0__default$3.default;
@@ -8461,12 +8464,13 @@ const redirectableStatusCodes = [
     308
 ];
 const kBody$1 = Symbol('body');
+_computedKey$2 = Symbol.asyncIterator;
 class BodyAsyncIterable {
     constructor(body){
         this[kBody$1] = body;
         this[kBodyUsed] = false;
     }
-    async *[Symbol.asyncIterator]() {
+    async *[_computedKey$2]() {
         assert$6(!this[kBodyUsed], 'disturbed');
         this[kBodyUsed] = true;
         yield* this[kBody$1];
@@ -12714,6 +12718,7 @@ const { buildURL } = util$j;
 mockInterceptor.MockInterceptor = MockInterceptor$2;
 mockInterceptor.MockScope = MockScope;
 
+var _computedKey$1;
 const { promisify: promisify$1 } = require$$0__default$2.default;
 const Client$1 = client;
 const { buildMockDispatch: buildMockDispatch$1 } = mockUtils;
@@ -12721,6 +12726,7 @@ const { kDispatches: kDispatches$2, kMockAgent: kMockAgent$1, kClose: kClose$2, 
 const { MockInterceptor: MockInterceptor$1 } = mockInterceptor;
 const Symbols$1 = symbols$4;
 const { InvalidArgumentError: InvalidArgumentError$5 } = errors$1;
+_computedKey$1 = Symbols$1.kConnected;
 /**
  * MockClient provides an API that extends the Client to influence the mockDispatches.
  */ let MockClient$2 = class MockClient extends Client$1 {
@@ -12738,7 +12744,7 @@ const { InvalidArgumentError: InvalidArgumentError$5 } = errors$1;
         this.dispatch = buildMockDispatch$1.call(this);
         this.close = this[kClose$2];
     }
-    get [Symbols$1.kConnected]() {
+    get [_computedKey$1]() {
         return this[kConnected$1];
     }
     /**
@@ -12754,6 +12760,7 @@ const { InvalidArgumentError: InvalidArgumentError$5 } = errors$1;
 };
 var mockClient = MockClient$2;
 
+var _computedKey;
 const { promisify } = require$$0__default$2.default;
 const Pool$2 = pool;
 const { buildMockDispatch } = mockUtils;
@@ -12761,6 +12768,7 @@ const { kDispatches: kDispatches$1, kMockAgent, kClose: kClose$1, kOriginalClose
 const { MockInterceptor } = mockInterceptor;
 const Symbols = symbols$4;
 const { InvalidArgumentError: InvalidArgumentError$4 } = errors$1;
+_computedKey = Symbols.kConnected;
 /**
  * MockPool provides an API that extends the Pool to influence the mockDispatches.
  */ let MockPool$2 = class MockPool extends Pool$2 {
@@ -12778,7 +12786,7 @@ const { InvalidArgumentError: InvalidArgumentError$4 } = errors$1;
         this.dispatch = buildMockDispatch.call(this);
         this.close = this[kClose$1];
     }
-    get [Symbols.kConnected]() {
+    get [_computedKey]() {
         return this[kConnected];
     }
     /**
@@ -13462,6 +13470,7 @@ var hasRequiredHeaders;
 function requireHeaders () {
 	if (hasRequiredHeaders) return headers;
 	hasRequiredHeaders = 1;
+	var _computedKey, _computedKey1;
 	const { kHeadersList, kConstruct } = symbols$4;
 	const { kGuard } = requireSymbols$3();
 	const { kEnumerableProperty } = util$j;
@@ -13558,6 +13567,7 @@ function requireHeaders () {
 	// 8. If headers’s guard is "request-no-cors", then remove
 	//    privileged no-CORS request headers from headers
 	}
+	_computedKey = Symbol.iterator;
 	class HeadersList {
 	    constructor(init){
 	        /** @type {[string, string][]|null} */ this.cookies = null;
@@ -13646,7 +13656,7 @@ function requireHeaders () {
 	        //    separated from each other by 0x2C 0x20, in order.
 	        return value === undefined ? null : value.value;
 	    }
-	    *[Symbol.iterator]() {
+	    *[_computedKey]() {
 	        // use the lowercased name
 	        for (const [name, { value }] of this[kHeadersMap]){
 	            yield [
@@ -13665,6 +13675,7 @@ function requireHeaders () {
 	        return headers;
 	    }
 	}
+	_computedKey1 = Symbol.for('nodejs.util.inspect.custom');
 	// https://fetch.spec.whatwg.org/#headers-class
 	class Headers {
 	    constructor(init = undefined){
@@ -13917,7 +13928,7 @@ function requireHeaders () {
 	            ]);
 	        }
 	    }
-	    [Symbol.for('nodejs.util.inspect.custom')]() {
+	    [_computedKey1]() {
 	        webidl.brandCheck(this, Headers);
 	        return this[kHeadersList];
 	    }
@@ -20217,12 +20228,7 @@ function requireReceiver () {
 	    #info;
 	    #fragments;
 	    constructor(ws){
-	        super();
-	        this.#buffers = [];
-	        this.#byteOffset = 0;
-	        this.#state = parserStates.INFO;
-	        this.#info = {};
-	        this.#fragments = [];
+	        super(), this.#buffers = [], this.#byteOffset = 0, this.#state = parserStates.INFO, this.#info = {}, this.#fragments = [];
 	        this.ws = ws;
 	    }
 	    /**
@@ -20506,16 +20512,12 @@ function requireWebsocket () {
 	   * @param {string} url
 	   * @param {string|string[]} protocols
 	   */ constructor(url, protocols = []){
-	        super();
-	        this.#events = {
+	        super(), this.#events = {
 	            open: null,
 	            error: null,
 	            close: null,
 	            message: null
-	        };
-	        this.#bufferedAmount = 0;
-	        this.#protocol = '';
-	        this.#extensions = '';
+	        }, this.#bufferedAmount = 0, this.#protocol = '', this.#extensions = '';
 	        webidl.argumentLengthCheck(arguments, 1, {
 	            header: 'WebSocket constructor'
 	        });
