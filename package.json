@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@luxass/eslint-config": "^4.14.0",
-    "@luxass/eslint-config": "^4.14.0",
     "@types/node": "^20.17.6",
     "bunchee": "^6.0.3",
     "eslint": "^9.17.0",
