@@ -13391,7 +13391,7 @@ function requireHeaders () {
 	    // Note: undici does not implement forbidden header names
 	    if (headers[kGuard] === 'immutable') {
 	        throw new TypeError('immutable');
-	    }
+	    } else if (headers[kGuard] === 'request-no-cors') ;
 	    // 6. Otherwise, if headers’s guard is "response" and name is a
 	    //    forbidden response-header name, return.
 	    // 7. Append (name, value) to headers’s header list.
@@ -13561,7 +13561,7 @@ function requireHeaders () {
 	        // Note: undici does not implement forbidden header names
 	        if (this[kGuard] === 'immutable') {
 	            throw new TypeError('immutable');
-	        }
+	        } else if (this[kGuard] === 'request-no-cors') ;
 	        // 6. If this’s header list does not contain name, then
 	        //    return.
 	        if (!this[kHeadersList].contains(name)) {
@@ -13646,7 +13646,7 @@ function requireHeaders () {
 	        // Note: undici does not implement forbidden header names
 	        if (this[kGuard] === 'immutable') {
 	            throw new TypeError('immutable');
-	        }
+	        } else if (this[kGuard] === 'request-no-cors') ;
 	        // 7. Set (name, value) in this’s header list.
 	        // 8. If this’s guard is "request-no-cors", then remove
 	        //    privileged no-CORS request headers from this
@@ -15444,6 +15444,10 @@ function requireFetch () {
 	    if (!request.headersList.contains('accept-language')) {
 	        request.headersList.append('accept-language', '*');
 	    }
+	    // 14. If request’s priority is null, then use request’s initiator and
+	    // destination appropriately in setting request’s priority to a
+	    // user-agent-defined object.
+	    if (request.priority === null) ;
 	    // 15. If request is a subresource request, then:
 	    if (subresourceSet.has(request.destination)) ;
 	    // 16. Run main fetch given fetchParams.
@@ -15559,6 +15563,8 @@ function requireFetch () {
 	    // 13. If response is not a network error and response is not a filtered
 	    // response, then:
 	    if (response.status !== 0 && !response.internalResponse) {
+	        // If request’s response tainting is "cors", then:
+	        if (request.responseTainting === 'cors') ;
 	        // Set response to the following filtered response with response as its
 	        // internal response, depending on request’s response tainting:
 	        if (request.responseTainting === 'basic') {
@@ -15861,6 +15867,8 @@ function requireFetch () {
 	    let actualResponse = null;
 	    // 4. Let timingInfo be fetchParams’s timing info.
 	    const timingInfo = fetchParams.timingInfo;
+	    // 5. If request’s service-workers mode is "all", then:
+	    if (request.serviceWorkers === 'all') ;
 	    // 6. If response is null, then:
 	    if (response === null) {
 	        // 1. If makeCORSPreflight is true and one of these conditions is true:
@@ -16079,6 +16087,11 @@ function requireFetch () {
 	    if (contentLengthHeaderValue != null) {
 	        httpRequest.headersList.append('content-length', contentLengthHeaderValue);
 	    }
+	    //    9. If contentLengthHeaderValue is non-null, then append (`Content-Length`,
+	    //    contentLengthHeaderValue) to httpRequest’s header list.
+	    //    10. If contentLength is non-null and httpRequest’s keepalive is true,
+	    //    then:
+	    if (contentLength != null && httpRequest.keepalive) ;
 	    //    11. If httpRequest’s referrer is a URL, then append
 	    //    `Referer`/httpRequest’s referrer, serialized and isomorphic encoded,
 	    //     to httpRequest’s header list.
@@ -16148,6 +16161,9 @@ function requireFetch () {
 	    {
 	        httpRequest.cache = 'no-store';
 	    }
+	    //    24. If httpRequest’s cache mode is neither "no-store" nor "reload",
+	    //    then:
+	    if (httpRequest.mode !== 'no-store' && httpRequest.mode !== 'reload') ;
 	    // 9. If aborted, then return the appropriate network error for fetchParams.
 	    // TODO
 	    // 10. If response is null, then:
@@ -16252,6 +16268,8 @@ function requireFetch () {
 	    {
 	        request.cache = 'no-store';
 	    }
+	    // 8. Switch on request’s mode:
+	    if (request.mode === 'websocket') ;
 	    // 9. Run these steps, but abort when the ongoing fetch is terminated:
 	    //    1. If connection is failure, then return a network error.
 	    //    2. Set timingInfo’s final connection timing info to the result of
