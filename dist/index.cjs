@@ -117,7 +117,7 @@ var hasRequiredCommand;
 function requireCommand () {
 	if (hasRequiredCommand) return command;
 	hasRequiredCommand = 1;
-	var __createBinding = command && command.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = command.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    var desc = Object.getOwnPropertyDescriptor(m, k);
 	    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -133,7 +133,7 @@ function requireCommand () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = command && command.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = command.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -141,7 +141,7 @@ function requireCommand () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = command && command.__importStar || function(mod) {
+	var __importStar = command.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -224,7 +224,7 @@ function requireFileCommand () {
 	if (hasRequiredFileCommand) return fileCommand;
 	hasRequiredFileCommand = 1;
 	// For internal use, subject to change.
-	var __createBinding = fileCommand && fileCommand.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = fileCommand.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    var desc = Object.getOwnPropertyDescriptor(m, k);
 	    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -240,7 +240,7 @@ function requireFileCommand () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = fileCommand && fileCommand.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = fileCommand.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -248,7 +248,7 @@ function requireFileCommand () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = fileCommand && fileCommand.__importStar || function(mod) {
+	var __importStar = fileCommand.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -13391,7 +13391,7 @@ function requireHeaders () {
 	    // Note: undici does not implement forbidden header names
 	    if (headers[kGuard] === 'immutable') {
 	        throw new TypeError('immutable');
-	    }
+	    } else if (headers[kGuard] === 'request-no-cors') ;
 	    // 6. Otherwise, if headers’s guard is "response" and name is a
 	    //    forbidden response-header name, return.
 	    // 7. Append (name, value) to headers’s header list.
@@ -13561,7 +13561,7 @@ function requireHeaders () {
 	        // Note: undici does not implement forbidden header names
 	        if (this[kGuard] === 'immutable') {
 	            throw new TypeError('immutable');
-	        }
+	        } else if (this[kGuard] === 'request-no-cors') ;
 	        // 6. If this’s header list does not contain name, then
 	        //    return.
 	        if (!this[kHeadersList].contains(name)) {
@@ -13646,7 +13646,7 @@ function requireHeaders () {
 	        // Note: undici does not implement forbidden header names
 	        if (this[kGuard] === 'immutable') {
 	            throw new TypeError('immutable');
-	        }
+	        } else if (this[kGuard] === 'request-no-cors') ;
 	        // 7. Set (name, value) in this’s header list.
 	        // 8. If this’s guard is "request-no-cors", then remove
 	        //    privileged no-CORS request headers from this
@@ -15444,6 +15444,10 @@ function requireFetch () {
 	    if (!request.headersList.contains('accept-language')) {
 	        request.headersList.append('accept-language', '*');
 	    }
+	    // 14. If request’s priority is null, then use request’s initiator and
+	    // destination appropriately in setting request’s priority to a
+	    // user-agent-defined object.
+	    if (request.priority === null) ;
 	    // 15. If request is a subresource request, then:
 	    if (subresourceSet.has(request.destination)) ;
 	    // 16. Run main fetch given fetchParams.
@@ -15559,6 +15563,8 @@ function requireFetch () {
 	    // 13. If response is not a network error and response is not a filtered
 	    // response, then:
 	    if (response.status !== 0 && !response.internalResponse) {
+	        // If request’s response tainting is "cors", then:
+	        if (request.responseTainting === 'cors') ;
 	        // Set response to the following filtered response with response as its
 	        // internal response, depending on request’s response tainting:
 	        if (request.responseTainting === 'basic') {
@@ -15861,6 +15867,8 @@ function requireFetch () {
 	    let actualResponse = null;
 	    // 4. Let timingInfo be fetchParams’s timing info.
 	    const timingInfo = fetchParams.timingInfo;
+	    // 5. If request’s service-workers mode is "all", then:
+	    if (request.serviceWorkers === 'all') ;
 	    // 6. If response is null, then:
 	    if (response === null) {
 	        // 1. If makeCORSPreflight is true and one of these conditions is true:
@@ -16079,6 +16087,11 @@ function requireFetch () {
 	    if (contentLengthHeaderValue != null) {
 	        httpRequest.headersList.append('content-length', contentLengthHeaderValue);
 	    }
+	    //    9. If contentLengthHeaderValue is non-null, then append (`Content-Length`,
+	    //    contentLengthHeaderValue) to httpRequest’s header list.
+	    //    10. If contentLength is non-null and httpRequest’s keepalive is true,
+	    //    then:
+	    if (contentLength != null && httpRequest.keepalive) ;
 	    //    11. If httpRequest’s referrer is a URL, then append
 	    //    `Referer`/httpRequest’s referrer, serialized and isomorphic encoded,
 	    //     to httpRequest’s header list.
@@ -16148,6 +16161,9 @@ function requireFetch () {
 	    {
 	        httpRequest.cache = 'no-store';
 	    }
+	    //    24. If httpRequest’s cache mode is neither "no-store" nor "reload",
+	    //    then:
+	    if (httpRequest.mode !== 'no-store' && httpRequest.mode !== 'reload') ;
 	    // 9. If aborted, then return the appropriate network error for fetchParams.
 	    // TODO
 	    // 10. If response is null, then:
@@ -16252,6 +16268,8 @@ function requireFetch () {
 	    {
 	        request.cache = 'no-store';
 	    }
+	    // 8. Switch on request’s mode:
+	    if (request.mode === 'websocket') ;
 	    // 9. Run these steps, but abort when the ongoing fetch is terminated:
 	    //    1. If connection is failure, then return a network error.
 	    //    2. Set timingInfo’s final connection timing info to the result of
@@ -20977,7 +20995,7 @@ var hasRequiredLib;
 function requireLib () {
 	if (hasRequiredLib) return lib;
 	hasRequiredLib = 1;
-	/* eslint-disable @typescript-eslint/no-explicit-any */ var __createBinding = lib && lib.__createBinding || (Object.create ? function(o, m, k, k2) {
+	/* eslint-disable @typescript-eslint/no-explicit-any */ var __createBinding = lib.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    var desc = Object.getOwnPropertyDescriptor(m, k);
 	    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -20993,7 +21011,7 @@ function requireLib () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = lib && lib.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = lib.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -21001,7 +21019,7 @@ function requireLib () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = lib && lib.__importStar || function(mod) {
+	var __importStar = lib.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -21010,7 +21028,7 @@ function requireLib () {
 	    __setModuleDefault(result, mod);
 	    return result;
 	};
-	var __awaiter = lib && lib.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = lib.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -21652,7 +21670,7 @@ var hasRequiredAuth;
 function requireAuth () {
 	if (hasRequiredAuth) return auth;
 	hasRequiredAuth = 1;
-	var __awaiter = auth && auth.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = auth.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -21759,7 +21777,7 @@ var hasRequiredOidcUtils;
 function requireOidcUtils () {
 	if (hasRequiredOidcUtils) return oidcUtils;
 	hasRequiredOidcUtils = 1;
-	var __awaiter = oidcUtils && oidcUtils.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = oidcUtils.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -21864,7 +21882,7 @@ function requireSummary () {
 	if (hasRequiredSummary) return summary;
 	hasRequiredSummary = 1;
 	(function (exports) {
-		var __awaiter = summary && summary.__awaiter || function(thisArg, _arguments, P, generator) {
+		var __awaiter = summary.__awaiter || function(thisArg, _arguments, P, generator) {
 		    function adopt(value) {
 		        return value instanceof P ? value : new P(function(resolve) {
 		            resolve(value);
@@ -22175,7 +22193,7 @@ var hasRequiredPathUtils;
 function requirePathUtils () {
 	if (hasRequiredPathUtils) return pathUtils;
 	hasRequiredPathUtils = 1;
-	var __createBinding = pathUtils && pathUtils.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = pathUtils.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    var desc = Object.getOwnPropertyDescriptor(m, k);
 	    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -22191,7 +22209,7 @@ function requirePathUtils () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = pathUtils && pathUtils.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = pathUtils.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -22199,7 +22217,7 @@ function requirePathUtils () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = pathUtils && pathUtils.__importStar || function(mod) {
+	var __importStar = pathUtils.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -22263,7 +22281,7 @@ function requireIoUtil () {
 	if (hasRequiredIoUtil) return ioUtil;
 	hasRequiredIoUtil = 1;
 	(function (exports) {
-		var __createBinding = ioUtil && ioUtil.__createBinding || (Object.create ? function(o, m, k, k2) {
+		var __createBinding = ioUtil.__createBinding || (Object.create ? function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    Object.defineProperty(o, k2, {
 		        enumerable: true,
@@ -22275,7 +22293,7 @@ function requireIoUtil () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		});
-		var __setModuleDefault = ioUtil && ioUtil.__setModuleDefault || (Object.create ? function(o, v) {
+		var __setModuleDefault = ioUtil.__setModuleDefault || (Object.create ? function(o, v) {
 		    Object.defineProperty(o, "default", {
 		        enumerable: true,
 		        value: v
@@ -22283,7 +22301,7 @@ function requireIoUtil () {
 		} : function(o, v) {
 		    o["default"] = v;
 		});
-		var __importStar = ioUtil && ioUtil.__importStar || function(mod) {
+		var __importStar = ioUtil.__importStar || function(mod) {
 		    if (mod && mod.__esModule) return mod;
 		    var result = {};
 		    if (mod != null) {
@@ -22292,7 +22310,7 @@ function requireIoUtil () {
 		    __setModuleDefault(result, mod);
 		    return result;
 		};
-		var __awaiter = ioUtil && ioUtil.__awaiter || function(thisArg, _arguments, P, generator) {
+		var __awaiter = ioUtil.__awaiter || function(thisArg, _arguments, P, generator) {
 		    function adopt(value) {
 		        return value instanceof P ? value : new P(function(resolve) {
 		            resolve(value);
@@ -22471,7 +22489,7 @@ var hasRequiredIo;
 function requireIo () {
 	if (hasRequiredIo) return io;
 	hasRequiredIo = 1;
-	var __createBinding = io && io.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = io.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    Object.defineProperty(o, k2, {
 	        enumerable: true,
@@ -22483,7 +22501,7 @@ function requireIo () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = io && io.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = io.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -22491,7 +22509,7 @@ function requireIo () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = io && io.__importStar || function(mod) {
+	var __importStar = io.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -22500,7 +22518,7 @@ function requireIo () {
 	    __setModuleDefault(result, mod);
 	    return result;
 	};
-	var __awaiter = io && io.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = io.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -22795,7 +22813,7 @@ var hasRequiredToolrunner;
 function requireToolrunner () {
 	if (hasRequiredToolrunner) return toolrunner;
 	hasRequiredToolrunner = 1;
-	var __createBinding = toolrunner && toolrunner.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = toolrunner.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    Object.defineProperty(o, k2, {
 	        enumerable: true,
@@ -22807,7 +22825,7 @@ function requireToolrunner () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = toolrunner && toolrunner.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = toolrunner.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -22815,7 +22833,7 @@ function requireToolrunner () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = toolrunner && toolrunner.__importStar || function(mod) {
+	var __importStar = toolrunner.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -22824,7 +22842,7 @@ function requireToolrunner () {
 	    __setModuleDefault(result, mod);
 	    return result;
 	};
-	var __awaiter = toolrunner && toolrunner.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = toolrunner.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -23415,7 +23433,7 @@ var hasRequiredExec;
 function requireExec () {
 	if (hasRequiredExec) return exec;
 	hasRequiredExec = 1;
-	var __createBinding = exec && exec.__createBinding || (Object.create ? function(o, m, k, k2) {
+	var __createBinding = exec.__createBinding || (Object.create ? function(o, m, k, k2) {
 	    if (k2 === undefined) k2 = k;
 	    Object.defineProperty(o, k2, {
 	        enumerable: true,
@@ -23427,7 +23445,7 @@ function requireExec () {
 	    if (k2 === undefined) k2 = k;
 	    o[k2] = m[k];
 	});
-	var __setModuleDefault = exec && exec.__setModuleDefault || (Object.create ? function(o, v) {
+	var __setModuleDefault = exec.__setModuleDefault || (Object.create ? function(o, v) {
 	    Object.defineProperty(o, "default", {
 	        enumerable: true,
 	        value: v
@@ -23435,7 +23453,7 @@ function requireExec () {
 	} : function(o, v) {
 	    o["default"] = v;
 	});
-	var __importStar = exec && exec.__importStar || function(mod) {
+	var __importStar = exec.__importStar || function(mod) {
 	    if (mod && mod.__esModule) return mod;
 	    var result = {};
 	    if (mod != null) {
@@ -23444,7 +23462,7 @@ function requireExec () {
 	    __setModuleDefault(result, mod);
 	    return result;
 	};
-	var __awaiter = exec && exec.__awaiter || function(thisArg, _arguments, P, generator) {
+	var __awaiter = exec.__awaiter || function(thisArg, _arguments, P, generator) {
 	    function adopt(value) {
 	        return value instanceof P ? value : new P(function(resolve) {
 	            resolve(value);
@@ -23558,7 +23576,7 @@ function requirePlatform () {
 	if (hasRequiredPlatform) return platform;
 	hasRequiredPlatform = 1;
 	(function (exports) {
-		var __createBinding = platform && platform.__createBinding || (Object.create ? function(o, m, k, k2) {
+		var __createBinding = platform.__createBinding || (Object.create ? function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    var desc = Object.getOwnPropertyDescriptor(m, k);
 		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -23574,7 +23592,7 @@ function requirePlatform () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		});
-		var __setModuleDefault = platform && platform.__setModuleDefault || (Object.create ? function(o, v) {
+		var __setModuleDefault = platform.__setModuleDefault || (Object.create ? function(o, v) {
 		    Object.defineProperty(o, "default", {
 		        enumerable: true,
 		        value: v
@@ -23582,7 +23600,7 @@ function requirePlatform () {
 		} : function(o, v) {
 		    o["default"] = v;
 		});
-		var __importStar = platform && platform.__importStar || function(mod) {
+		var __importStar = platform.__importStar || function(mod) {
 		    if (mod && mod.__esModule) return mod;
 		    var result = {};
 		    if (mod != null) {
@@ -23591,7 +23609,7 @@ function requirePlatform () {
 		    __setModuleDefault(result, mod);
 		    return result;
 		};
-		var __awaiter = platform && platform.__awaiter || function(thisArg, _arguments, P, generator) {
+		var __awaiter = platform.__awaiter || function(thisArg, _arguments, P, generator) {
 		    function adopt(value) {
 		        return value instanceof P ? value : new P(function(resolve) {
 		            resolve(value);
@@ -23618,7 +23636,7 @@ function requirePlatform () {
 		        step((generator = generator.apply(thisArg, _arguments || [])).next());
 		    });
 		};
-		var __importDefault = platform && platform.__importDefault || function(mod) {
+		var __importDefault = platform.__importDefault || function(mod) {
 		    return mod && mod.__esModule ? mod : {
 		        "default": mod
 		    };
@@ -23694,7 +23712,7 @@ function requireCore () {
 	if (hasRequiredCore) return core;
 	hasRequiredCore = 1;
 	(function (exports) {
-		var __createBinding = core && core.__createBinding || (Object.create ? function(o, m, k, k2) {
+		var __createBinding = core.__createBinding || (Object.create ? function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    var desc = Object.getOwnPropertyDescriptor(m, k);
 		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -23710,7 +23728,7 @@ function requireCore () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		});
-		var __setModuleDefault = core && core.__setModuleDefault || (Object.create ? function(o, v) {
+		var __setModuleDefault = core.__setModuleDefault || (Object.create ? function(o, v) {
 		    Object.defineProperty(o, "default", {
 		        enumerable: true,
 		        value: v
@@ -23718,7 +23736,7 @@ function requireCore () {
 		} : function(o, v) {
 		    o["default"] = v;
 		});
-		var __importStar = core && core.__importStar || function(mod) {
+		var __importStar = core.__importStar || function(mod) {
 		    if (mod && mod.__esModule) return mod;
 		    var result = {};
 		    if (mod != null) {
@@ -23727,7 +23745,7 @@ function requireCore () {
 		    __setModuleDefault(result, mod);
 		    return result;
 		};
-		var __awaiter = core && core.__awaiter || function(thisArg, _arguments, P, generator) {
+		var __awaiter = core.__awaiter || function(thisArg, _arguments, P, generator) {
 		    function adopt(value) {
 		        return value instanceof P ? value : new P(function(resolve) {
 		            resolve(value);
