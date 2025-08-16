@@ -1602,8 +1602,7 @@ function requireSbmh () {
 	    }
 	    this.maxMatches = Infinity;
 	    this.matches = 0;
-	    this._occ = new Array(256).fill(needleLength) // Initialize occurrence table.
-	    ;
+	    this._occ = new Array(256).fill(needleLength); // Initialize occurrence table.
 	    this._lookbehind_size = 0;
 	    this._needle = needle;
 	    this._bufpos = 0;
@@ -3327,8 +3326,7 @@ function requireDecoder () {
 	            if (!HEX[str.charCodeAt(i)]) {
 	                res += '%' + this.buffer;
 	                this.buffer = undefined;
-	                --i // retry character
-	                ;
+	                --i; // retry character
 	            } else {
 	                this.buffer += str[i];
 	                ++p;
@@ -4773,8 +4771,7 @@ function requireUtil$5 () {
 	 * @see https://fetch.spec.whatwg.org/#is-local
 	 * @param {URL} url
 	 */ function urlIsLocal(url) {
-	    assert('protocol' in url) // ensure it's a url object
-	    ;
+	    assert('protocol' in url); // ensure it's a url object
 	    const protocol = url.protocol;
 	    return protocol === 'about:' || protocol === 'blob:' || protocol === 'data:';
 	}
@@ -4790,8 +4787,7 @@ function requireUtil$5 () {
 	 * @see https://fetch.spec.whatwg.org/#http-scheme
 	 * @param {URL} url
 	 */ function urlIsHttpHttpsScheme(url) {
-	    assert('protocol' in url) // ensure it's a url object
-	    ;
+	    assert('protocol' in url); // ensure it's a url object
 	    const protocol = url.protocol;
 	    return protocol === 'http:' || protocol === 'https:';
 	}
@@ -5689,8 +5685,7 @@ function requireDataURL () {
 	// https://infra.spec.whatwg.org/#forgiving-base64-decode
 	/** @param {string} data */ function forgivingBase64(data) {
 	    // 1. Remove all ASCII whitespace from data.
-	    data = data.replace(/[\u0009\u000A\u000C\u000D\u0020]/g, '') // eslint-disable-line
-	    ;
+	    data = data.replace(/[\u0009\u000A\u000C\u000D\u0020]/g, ''); // eslint-disable-line
 	    // 2. If data’s code point length divides by 4 leaving
 	    // no remainder, then:
 	    if (data.length % 4 === 0) {
@@ -8094,8 +8089,7 @@ function requireRedirectHandler () {
 	        this.opts = {
 	            ...opts,
 	            maxRedirections: 0
-	        } // opts must be a copy
-	        ;
+	        }; // opts must be a copy
 	        this.maxRedirections = maxRedirections;
 	        this.handler = handler;
 	        this.history = [];
@@ -8255,8 +8249,7 @@ function requireRedirectInterceptor () {
 	            opts = {
 	                ...opts,
 	                maxRedirections: 0
-	            } // Stop sub dispatcher from also redirecting.
-	            ;
+	            }; // Stop sub dispatcher from also redirecting.
 	            return dispatch(opts, redirectHandler);
 	        };
 	    };
@@ -8442,10 +8435,8 @@ function requireClient () {
 	        this[kKeepAliveTimeoutValue] = this[kKeepAliveDefaultTimeout];
 	        this[kServerName] = null;
 	        this[kLocalAddress] = localAddress != null ? localAddress : null;
-	        this[kResuming] = 0 // 0, idle, 1, scheduled, 2 resuming
-	        ;
-	        this[kNeedDrain] = 0 // 0, idle, 1, scheduled, 2 resuming
-	        ;
+	        this[kResuming] = 0; // 0, idle, 1, scheduled, 2 resuming
+	        this[kNeedDrain] = 0; // 0, idle, 1, scheduled, 2 resuming
 	        this[kHostHeader] = `host: ${this[kUrl].hostname}${this[kUrl].port ? `:${this[kUrl].port}` : ''}\r\n`;
 	        this[kBodyTimeout] = bodyTimeout != null ? bodyTimeout : 300e3;
 	        this[kHeadersTimeout] = headersTimeout != null ? headersTimeout : 300e3;
@@ -8726,8 +8717,7 @@ function requireClient () {
 	            }
 	        }
 	        this.paused = false;
-	        this.execute(this.socket.read() || EMPTY_BUF) // Flush parser.
-	        ;
+	        this.execute(this.socket.read() || EMPTY_BUF); // Flush parser.
 	        this.readMore();
 	    }
 	    readMore() {
@@ -10916,8 +10906,7 @@ function requireReadable () {
 	            this[kBody] = ReadableStreamFrom(this);
 	            if (this[kConsume]) {
 	                // TODO: Is this the best way to force a lock?
-	                this[kBody].getReader() // Ensure stream is locked.
-	                ;
+	                this[kBody].getReader(); // Ensure stream is locked.
 	                assert(this[kBody].locked);
 	            }
 	        }
@@ -13121,8 +13110,7 @@ function requireRetryHandler () {
 	        let retryAfterHeader = headers != null && headers['retry-after'];
 	        if (retryAfterHeader) {
 	            retryAfterHeader = Number(retryAfterHeader);
-	            retryAfterHeader = isNaN(retryAfterHeader) ? calculateRetryAfterHeader(retryAfterHeader) : retryAfterHeader * 1e3 // Retry-After is in seconds
-	            ;
+	            retryAfterHeader = isNaN(retryAfterHeader) ? calculateRetryAfterHeader(retryAfterHeader) : retryAfterHeader * 1e3; // Retry-After is in seconds
 	        }
 	        const retryTimeout = retryAfterHeader > 0 ? Math.min(retryAfterHeader, maxTimeout) : Math.min(currentTimeout * timeoutFactor ** counter, maxTimeout);
 	        state.currentTimeout = retryTimeout;
@@ -17977,10 +17965,8 @@ function requireCache () {
 	                request: requestList[index],
 	                response
 	            };
-	            operations.push(operation) // 7.3.5
-	            ;
-	            index++ // 7.3.6
-	            ;
+	            operations.push(operation); // 7.3.5
+	            index++; // 7.3.6
 	        }
 	        // 7.5
 	        const cacheJobPromise = createDeferredPromise();
@@ -20030,21 +20016,17 @@ function requireFrame () {
 	        ;
 	        let offset = 6;
 	        if (bodyLength > maxUnsigned16Bit) {
-	            offset += 8 // payload length is next 8 bytes
-	            ;
+	            offset += 8; // payload length is next 8 bytes
 	            payloadLength = 127;
 	        } else if (bodyLength > 125) {
-	            offset += 2 // payload length is next 2 bytes
-	            ;
+	            offset += 2; // payload length is next 2 bytes
 	            payloadLength = 126;
 	        }
 	        const buffer = Buffer.allocUnsafe(bodyLength + offset);
 	        // Clear first 2 bytes, everything else is overwritten
 	        buffer[0] = buffer[1] = 0;
-	        buffer[0] |= 0x80 // FIN
-	        ;
-	        buffer[0] = (buffer[0] & 0xF0) + opcode // opcode
-	        ;
+	        buffer[0] |= 0x80; // FIN
+	        buffer[0] = (buffer[0] & 0xF0) + opcode; // opcode
 	        /*! ws. MIT License. Einar Otto Stangvik <einaros@gmail.com> */ buffer[offset - 4] = this.maskKey[0];
 	        buffer[offset - 3] = this.maskKey[1];
 	        buffer[offset - 2] = this.maskKey[2];
@@ -20057,8 +20039,7 @@ function requireFrame () {
 	            buffer[2] = buffer[3] = 0;
 	            buffer.writeUIntBE(bodyLength, 4, 6);
 	        }
-	        buffer[1] |= 0x80 // MASK
-	        ;
+	        buffer[1] |= 0x80; // MASK
 	        // mask body
 	        for(let i = 0; i < bodyLength; i++){
 	            buffer[offset + i] = this.frameData[i] ^ this.maskKey[i % 4];
