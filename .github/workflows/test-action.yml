@@ -30,6 +30,6 @@ jobs:
           persist-credentials: false
 
       - name: run action
-        uses: ./@main
+        uses: luxass/github-action-template-bunchee@main
         with:
           who-to-greet: Mona the Octocat
