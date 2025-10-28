@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.38.0",
-    "@types/node": "22.18.10",
+    "@types/node": "22.18.12",
     "bunchee": "6.6.2",
     "eslint": "9.38.0",
     "typescript": "5.9.3",
