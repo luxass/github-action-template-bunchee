@@ -1,6 +1,11 @@
 // @ts-check
-import { luxass } from "@luxass/eslint-config";
 
-export default luxass({
-  formatters: true,
-});
+import eslint from "@eslint/js";
+import { defineConfig, globalIgnores } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+  globalIgnores(["dist/*"])
+)
