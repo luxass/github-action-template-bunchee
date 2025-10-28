@@ -10,9 +10,9 @@
   },
   "packageManager": "pnpm@10.18.2",
   "license": "MIT",
-  "main": "dist/index.cjs",
+  "main": "dist/index.mjs",
   "scripts": {
-    "build": "bunchee --no-external --runtime node --target es2022",
+    "build": "bunchee --no-external -f esm --runtime node --target es2022",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
