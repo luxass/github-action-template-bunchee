@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "25.5.0",
-    "bunchee": "6.9.4",
+    "bunchee": "6.12.2",
     "oxfmt": "catalog:dev",
     "oxlint": "catalog:dev",
     "oxlint-tsgolint": "catalog:dev",
