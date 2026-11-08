@@ -19,15 +19,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@actions/core": "3.0.0"
+    "@actions/core": "catalog:runtime"
   },
   "devDependencies": {
-    "@types/node": "25.5.0",
-    "bunchee": "6.9.4",
+    "@types/node": "catalog:types",
+    "bunchee": "catalog:dev",
     "oxfmt": "catalog:dev",
     "oxlint": "catalog:dev",
     "oxlint-tsgolint": "catalog:dev",
-    "typescript": "5.9.3"
+    "typescript": "catalog:dev"
   },
-  "packageManager": "pnpm@12.15.0"
+  "packageManager": "pnpm@12.17.0"
 }
